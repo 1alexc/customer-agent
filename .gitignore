@@ -1,0 +1,127 @@
+# ==============================================================================
+# SECRETS, CREDENTIALS & SENSITIVE DATA (DO NOT COMMIT)
+# ==============================================================================
+# Environment variable files containing API keys, secrets, tokens
+.env
+.env.*
+*.env
+# Allow example / template files to be tracked safely
+!.env.example
+!.env.template
+
+# Cloud & Service Account keys (Google Cloud, AWS, etc.)
+*service_account*.json
+*service-account*.json
+*credentials*.json
+client_secret*.json
+google-credentials.json
+application_default_credentials.json
+
+# Private keys and certificates
+*.pem
+*.key
+*.crt
+*.cert
+*.pfx
+*.p12
+id_rsa*
+id_ed25519*
+
+# ==============================================================================
+# PYTHON & VIRTUAL ENVIRONMENTS
+# ==============================================================================
+# Virtual environments (must never be committed)
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging artifacts
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==============================================================================
+# TESTING, COVERAGE & STATIC ANALYSIS
+# ==============================================================================
+.pytest_cache/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+htmlcov/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+.hypothesis/
+
+# ==============================================================================
+# OS & SYSTEM METADATA
+# ==============================================================================
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ==============================================================================
+# IDEs & CODE EDITORS
+# ==============================================================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.idea/
+*.swp
+*.swo
+*~
+*.bak
+
+# ==============================================================================
+# LOGS, SESSIONS & TEMPORARY DATA
+# ==============================================================================
+*.log
+logs/
+*.sqlite
+*.sqlite3
+*.db
+.adk/
+adk_session/
+.antigravity/
+.gemini/
+
