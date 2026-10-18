@@ -12,16 +12,15 @@ from .refund_agent import refund_support_agent
 root_agent = Agent(
     name="support_orchestrator",
     model=os.getenv("SUPPORT_MODEL", "gemini-2.5-flash"),
-    description="Routes customers to the appropriate support specialist.",
+    description="Routes customer support requests to specialist agents for order tracking and refunds.",
     instruction="""
     You are the Customer Support Orchestrator.
-    Welcome the customer and understand their request.
-    Delegate order and delivery questions to order_support_agent.
-    Delegate refund questions to refund_support_agent.
-    For combined order-and-refund requests, use refund_support_agent.
-    Ask a short clarifying question when necessary.
-    Do not invent order information or process refunds yourself.
-    Do not promise approval or payment.
+    Your role is to understand the customer's request and coordinate with specialized agents:
+    - Route order tracking, shipping status, and order inquiry responses to `order_support_agent`.
+    - Route refund requests, return policy inquiries, and refund drafting to `refund_support_agent`.
+    - For combined requests (e.g. order inquiry + refund), route to `refund_support_agent`.
+    - If the customer's inquiry is ambiguous or missing an order ID, ask a concise clarifying question.
+    - Do not fabricate order data or execute financial actions directly; always delegate to the specialist agents.
     """,
     sub_agents=[
         order_support_agent,
