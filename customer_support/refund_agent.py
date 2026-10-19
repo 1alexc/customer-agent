@@ -1,7 +1,16 @@
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+CURRENT_DIR = Path(__file__).resolve().parent
+for env_candidate in [CURRENT_DIR.parent / ".env", CURRENT_DIR / ".env"]:
+    if env_candidate.exists():
+        load_dotenv(env_candidate, override=True)
+        break
 
 from google.adk.agents import Agent
 from .tools import draft_reply, get_order, issue_refund
+from .guardrails import model_armor_config
 
 refund_support_agent = Agent(
     name="refund_support_agent",
@@ -23,4 +32,5 @@ refund_support_agent = Agent(
     7. For order tracking, shipping, or general delivery inquiries, transfer back to `support_orchestrator`.
     """,
     tools=[get_order, issue_refund, draft_reply],
+    generate_content_config=model_armor_config(),
 )

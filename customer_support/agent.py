@@ -3,9 +3,14 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).with_name(".env"))
+CURRENT_DIR = Path(__file__).resolve().parent
+for env_candidate in [CURRENT_DIR.parent / ".env", CURRENT_DIR / ".env"]:
+    if env_candidate.exists():
+        load_dotenv(env_candidate, override=True)
+        break
 
 from google.adk.agents import Agent
+from .guardrails import model_armor_config
 from .order_agent import order_support_agent
 from .refund_agent import refund_support_agent
 
@@ -26,4 +31,5 @@ root_agent = Agent(
         order_support_agent,
         refund_support_agent,
     ],
+    generate_content_config=model_armor_config(),
 )

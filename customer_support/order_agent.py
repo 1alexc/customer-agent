@@ -1,7 +1,16 @@
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+CURRENT_DIR = Path(__file__).resolve().parent
+for env_candidate in [CURRENT_DIR.parent / ".env", CURRENT_DIR / ".env"]:
+    if env_candidate.exists():
+        load_dotenv(env_candidate, override=True)
+        break
 
 from google.adk.agents import Agent
 from .tools import draft_reply, get_order
+from .guardrails import model_armor_config
 
 order_support_agent = Agent(
     name="order_support_agent",
@@ -19,4 +28,5 @@ order_support_agent = Agent(
     7. Maintain a polite, empathetic, and concise communication style.
     """,
     tools=[get_order, draft_reply],
+    generate_content_config=model_armor_config(),
 )

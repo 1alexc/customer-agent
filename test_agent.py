@@ -82,13 +82,16 @@ def print_event_content(event, verbose: bool = False) -> tuple[bool, bool]:
     has_error = False
 
     if isinstance(event, dict):
-        # 1. Check for remote runtime errors
-        if "errorMessage" in event or "errorCode" in event or (
-            event.get("code") and event.get("code") != 200
-        ):
-            code = event.get("errorCode") or event.get("code")
-            msg = event.get("errorMessage") or event.get("message", "Unknown error")
-            print(f"\n[REMOTE ERROR {code}]: {msg}", file=sys.stderr)
+        # 1. Check for Model Armor block or remote runtime errors
+        err_code = event.get("error_code") or event.get("errorCode") or event.get("code")
+        err_msg = event.get("error_message") or event.get("errorMessage") or event.get("message")
+
+        if err_code == "MODEL_ARMOR" or (err_msg and "Prompt Injection" in str(err_msg)):
+            print(f"[BLOCKED BY MODEL ARMOR] {err_msg}", end="", flush=True)
+            return True, False
+
+        if (err_code and err_code != 200) or (err_msg and "error" in str(err_msg).lower()):
+            print(f"\n[REMOTE ERROR {err_code}]: {err_msg}", file=sys.stderr)
             return False, True
 
         # 2. Extract content parts
