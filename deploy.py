@@ -99,6 +99,12 @@ deployment_config = {
         "SUPPORT_MODEL": os.getenv("SUPPORT_MODEL", "gemini-2.5-flash"),
         "MODEL_ARMOR_INPUT_TEMPLATE": os.getenv("MODEL_ARMOR_INPUT_TEMPLATE", ""),
         "MODEL_ARMOR_OUTPUT_TEMPLATE": os.getenv("MODEL_ARMOR_OUTPUT_TEMPLATE", ""),
+        # Agent Runtime Observability & Tracing
+        "GOOGLE_CLOUD_AGENT_ENGINE_ENABLE_TELEMETRY": "true",
+        "OTEL_SEMCONV_STABILITY_OPT_IN": "gen_ai_latest_experimental",
+        "OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT": os.getenv(
+            "OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT", "SPAN_AND_EVENT"
+        ),
     },
 }
 
