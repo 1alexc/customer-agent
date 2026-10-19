@@ -9,8 +9,8 @@ for env_candidate in [CURRENT_DIR.parent / ".env", CURRENT_DIR / ".env"]:
         break
 
 from google.adk.agents import Agent
+from .guardrails import explain_model_armor_block, model_armor_config
 from .tools import draft_reply, get_order
-from .guardrails import model_armor_config
 
 order_support_agent = Agent(
     name="order_support_agent",
@@ -29,4 +29,5 @@ order_support_agent = Agent(
     """,
     tools=[get_order, draft_reply],
     generate_content_config=model_armor_config(),
+    after_model_callback=explain_model_armor_block,
 )
